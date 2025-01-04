@@ -82,6 +82,10 @@ DATABASES = {
     }
 }
 
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+AUTH_USER_MODEL = 'user_app.User'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
