@@ -1,4 +1,7 @@
-from user_app.forms import UserCreateForm, LoginForm
+from user_app.forms import  (
+    UserCreateForm, LoginForm,
+    UserInformationForm
+    )
 from django.test import TestCase
 
 
@@ -23,7 +26,8 @@ class UserCreateFormTest(TestCase):
     def user_create_from_invalid_data_emtpy_first_name(self):
         form = UserCreateForm(
             {'last_name': 'testi', 'email': 'test@test.com',
-             'password': '1', 'repeat_password': '1'})
+             'password': '1', 'repeat_password': '1'}
+            )
         self.assertFalse(form.is_valid())
         self.assertEqual(
             form.errors['first_name'][0], 'This field is required.')
@@ -98,3 +102,59 @@ class LoginFormTest(TestCase):
         )
         self.assertFalse(form.is_valid())
         self.assertEqual('This field is required', form.errors['password'])
+
+    def test_detail_form(self):
+        form = UserInformationForm(
+            {'github_link': 'https://github.com/',
+             'linkedin_link': 'https://linkedinlink.com/',
+             'phone_number': '+912555464',
+             'country': 'iran',
+             'city': 'tehran',
+             'about_me': 'sdsdadadasdasdasdasdasda',
+             'image': ''}
+        )
+        self.assertTrue(form.is_valid())
+
+    def test_detail_form_invalid_github_link(self):
+        form = UserInformationForm(
+            {'github_link': 'sssss',
+             'linkedin_link': 'https://linkedinlink.com/',
+             'phone_number': '+912555464',
+             'country': 'iran',
+             'city': 'tehran',
+             'about_me': 'sdsdadadasdasdasdasdasda',
+             'image': ''}
+        )
+        self.assertFalse(form.is_valid())
+        self.assertEqual(
+            form.errors['github_link'][0], 'Enter a valid URL.')
+
+    def test_detail_form_invalid_linkedin_link(self):
+        form = UserInformationForm(
+            {'github_link': 'https://github.com/',
+             'linkedin_link': 'sssss',
+             'phone_number': '+912555464',
+             'country': 'iran',
+             'city': 'tehran',
+             'about_me': 'sdsdadadasdasdasdasdasda',
+             'image': ''}
+        )
+        self.assertFalse(form.is_valid())
+        self.assertEqual(
+            form.errors['linkedin_link'][0], 'Enter a valid URL.')
+
+    def test_detail_form_invalid_phone_number(self):
+        form = UserInformationForm(
+            {'github_link': 'https://github.com/',
+             'linkedin_link': 'https://linkedinlink.com/',
+             'phone_number': 'sdsd',
+             'country': 'iran',
+             'city': 'tehran',
+             'about_me': 'sdsdadadasdasdasdasdasda',
+             'image': ''}
+        )
+        self.assertFalse(form.is_valid())
+        self.assertEqual(
+            form.errors['phone_number'][0],
+            "Only '+' and numbers are allowed in phone numbers."
+              )

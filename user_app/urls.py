@@ -4,7 +4,9 @@ from django.shortcuts import render
 from user_app.views import (
     UserCreate, UserLogin,
     UserLogout, MyLoginRequiredMixin,
-    UserUpdate)
+    UserUpdate, EditProfileInformation,
+    ProfileInformation
+    )
 
 
 class HomeView(MyLoginRequiredMixin, TemplateView):
@@ -20,4 +22,6 @@ urlpatterns = [
     path('login/', UserLogin.as_view(), name='login'),
     path('logout/', UserLogout.as_view(), name='logout'),
     path('update/', UserUpdate.as_view(), name='update'),
+    path('profile/edit/', EditProfileInformation.as_view(), name='edit_profile_detail'),
+    path('profile/', ProfileInformation.as_view(), name='profile_detail'),
 ]
