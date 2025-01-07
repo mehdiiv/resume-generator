@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from .forms import UserCreateForm, LoginForm, UserUpdateForm
-from django.contrib.auth import login, logout, authenticate
+from .forms import UserCreateForm, LoginForm, UserUpdateForm, UserInformationForm
+from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from user_app.models import User
@@ -13,7 +13,7 @@ class MyLoginRequiredMixin(LoginRequiredMixin):
 
 
 class UserCreate(TemplateView):
-    template_name = 'user_app/form.html'
+    template_name = 'user_app/create_form.html'
 
     def get(self, request):
         context = {'UserCreateForm': UserCreateForm}
@@ -31,7 +31,7 @@ class UserCreate(TemplateView):
 
 
 class UserLogin(TemplateView):
-    template_name = 'user_app/login.html'
+    template_name = 'user_app/login_form.html'
 
     def get(self, request):
         context = {
@@ -44,15 +44,19 @@ class UserLogin(TemplateView):
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            user = authenticate(request, email=email, password=password)
-            if user is not None:
+            try:
+                user = User.objects.get(email=email)
+            except User.DoesNotExist:
+                form.add_error('email', 'Invalid email or password')
+                return render(request, self.template_name, {'form': form})
+            if user.check_password(password):
                 login(request, user)
                 return redirect('home')
             else:
                 form.add_error('password', 'Invalid email or password')
                 return render(request, self.template_name, {'form': form})
         else:
-            return render(request, self.template_name, {'form': form})
+            return redirect('login')
 
 
 class UserLogout(MyLoginRequiredMixin, TemplateView):
@@ -63,7 +67,7 @@ class UserLogout(MyLoginRequiredMixin, TemplateView):
 
 
 class UserUpdate(MyLoginRequiredMixin, TemplateView):
-    template_name = 'user_app/updateform.html'
+    template_name = 'user_app/manage_account_form.html'
 
     def get(self, request):
         user = User.objects.get(id=request.user.id)
@@ -78,4 +82,25 @@ class UserUpdate(MyLoginRequiredMixin, TemplateView):
             user.set_password(form.cleaned_data.get('password'))
             user = form.save()
             return redirect('home')
-        return render(request, 'user_app/updateform.html', {'form': form})
+        return render(request, 'user_app/manage_account_form.html', {'form': form})
+
+class ProfileInformation(MyLoginRequiredMixin, TemplateView):
+    def get(self, request):
+        user = User.objects.get(id=request.user.id)
+        return render(request, 'user_app/profile_information.html', {'user': user})
+
+class EditProfileInformation(MyLoginRequiredMixin, TemplateView):
+    template_name = 'user_app/profile_information_form.html'
+
+    def get(self, request):
+        user = User.objects.get(id=request.user.id)
+        context = {'form': UserInformationForm(instance=user)}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        user = User.objects.get(id=request.user.id)
+        form = UserInformationForm(request.POST,request.FILES ,instance=user)
+        if form.is_valid():
+            user = form.save()
+            return render(request, 'user_app/profile_information.html', {'user': user})
+        return render(request, 'user_app/profile_information_form.html', {'form': form})

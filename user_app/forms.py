@@ -44,6 +44,16 @@ class UserUpdateForm(forms.ModelForm):
         return cleaned_data
 
 
+class PhoneNumberField(forms.CharField):
+    def clean(self, value):
+        if value:
+            if not all(c in "+0123456789" for c in value):
+                raise forms.ValidationError(
+                    "Only '+' and numbers are allowed in phone numbers."
+                    )
+        return super().clean(value)
+
+
 class LoginForm(forms.Form):
     email = forms.EmailField(
         widget=forms.TextInput()
@@ -51,3 +61,14 @@ class LoginForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput()
     )
+
+
+class UserInformationForm(forms.ModelForm):
+    phone_number = PhoneNumberField(
+        max_length=15)
+
+    class Meta:
+        model = User
+        fields = ['github_link', 'linkedin_link',
+                  'phone_number', 'country', 'city',
+                  'about_me', 'image']

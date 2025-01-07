@@ -1,7 +1,8 @@
 from django.test import SimpleTestCase
 from user_app.views import (
     UserUpdate, UserCreate,
-    UserLogin, UserLogout
+    UserLogin, UserLogout,
+    EditProfileInformation
 )
 from django.urls import resolve, reverse
 
@@ -22,3 +23,7 @@ class UrlTest(SimpleTestCase):
     def test_user_update_url(self):
         url = reverse('update')
         self.assertEqual(resolve(url).func.view_class, UserUpdate)
+
+    def test_user_update_url(self):
+        url = reverse('edit_profile_detail')
+        self.assertEqual(resolve(url).func.view_class, EditProfileInformation)

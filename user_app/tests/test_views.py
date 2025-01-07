@@ -1,6 +1,8 @@
 from django.test import TestCase, Client
+from django.contrib.auth import logout
 from django.urls import reverse
 from user_app.models import User
+from django.contrib.auth import get_user_model
 
 
 class ViewTest(TestCase):
@@ -91,7 +93,7 @@ class ViewTest(TestCase):
         response = self.client.post(
             reverse('login'), email='test2@test.com', password='12'
             )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
     def test_update_user_get(self):
         response = self.client.get(reverse('update'))
@@ -137,4 +139,13 @@ class ViewTest(TestCase):
             {'first_name': 'updatefirst',
              'last_name': 'updatelast', 'password': '25'}
             )
+        self.assertEqual(response.status_code, 200)
+
+    def test_logout_user_get_view(self):
+        logout(self.client)
+        response = self.client.get(reverse('logout'))
+        self.assertEqual(response.status_code, 302)
+
+    def test_detial_user_get_view(self):
+        response = self.client.get(reverse('edit_profile_detail'))
         self.assertEqual(response.status_code, 200)
