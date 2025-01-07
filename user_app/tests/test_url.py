@@ -24,6 +24,6 @@ class UrlTest(SimpleTestCase):
         url = reverse('update')
         self.assertEqual(resolve(url).func.view_class, UserUpdate)
 
-    def test_user_update_url(self):
+    def test_user_edit_url(self):
         url = reverse('edit_profile_detail')
         self.assertEqual(resolve(url).func.view_class, EditProfileInformation)
