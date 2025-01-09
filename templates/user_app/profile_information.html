@@ -1,4 +1,4 @@
-{% extends 'base_logged_in.html' %}
+{% extends 'main_layout.html' %}
 {% load static %}
 
 {% block content %}
@@ -23,7 +23,11 @@
                             <tbody>
                                 <tr>
                                     <td>Image</td>
+                                    {% if user.image %}
                                     <td><img src="{{ user.image.url  }}" alt="{{profile.name}}" style="max-width: 200px;"></td>
+                                    {% else %}
+                                        <td>None</td>
+                                    {% endif %}
                                 </tr>
                                 <tr>
                                     <td>Github link</td>

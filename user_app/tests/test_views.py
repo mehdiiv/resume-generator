@@ -2,7 +2,6 @@ from django.test import TestCase, Client
 from django.contrib.auth import logout
 from django.urls import reverse
 from user_app.models import User
-from django.contrib.auth import get_user_model
 
 
 class ViewTest(TestCase):

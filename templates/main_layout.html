@@ -50,10 +50,19 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="nav-item active">
-                <a class="nav-link" href="{% url 'profile_detail' %}"><i class="fas fa-solid fa-user"></i>Profile Information</a>
-            </div>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'profile_detail' %}">
+                    <i class="fas fa-solid fa-user"></i>
+                    <span>Profile Information</span></a>
+            </li>
+            <hr class="sidebar-divider">
 
+            <!-- Heading -->
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'skill_categories' %}">
+                    <i class="fas fa-solid fa-clipboard"></i>
+                    <span>Skill Categories</span></a>
+            </li>
 
 
         </ul>
