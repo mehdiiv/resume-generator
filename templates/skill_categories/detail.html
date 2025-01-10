@@ -6,7 +6,7 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">{{category_object.category}}</h6>
-                <a href="#" class="btn btn-sm btn-primary shadow-sm">
+                <a href="{% url 'skill_new' category_object.id %}" class="btn btn-sm btn-primary shadow-sm">
                     <i class="fas fa-solid fa-plus">
                         <span>Add New Skill</span>
                     </i>
@@ -23,7 +23,21 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for object in skills_ojecsts %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ object.name }}</td>
+                                <td>
+                                    <a href="{% url 'skill_delete' category_object.id object.id %}" class="btn btn-danger btn-circle">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    <a href="{% url 'skill_edit' category_object.id object.id %}" class="btn btn-warning btn-circle">
+                                        <i class="fas fa-sharp fa-regular fa-pen"></i>
+                                    </a>
 
+                                </td>
+                            </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
