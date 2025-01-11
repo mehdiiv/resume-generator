@@ -14,3 +14,17 @@ class SkillCategory(models.Model):
 
     class Meta:
         db_table = 'skill_categories'
+
+
+class Skill(models.Model):
+    skill_category = models.ForeignKey(
+        SkillCategory, on_delete=models.CASCADE,
+        related_name='skills'
+        )
+    name = models.CharField(
+        max_length=32, blank=False,
+        unique=True
+        )
+
+    class Meta:
+        db_table = 'skills'
