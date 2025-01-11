@@ -6,7 +6,8 @@ from django.conf import settings
 urlpatterns = [
 
     path('', include('user_app.urls')),
-    path('Categories/', include('skill.urls')),
+    path('categories/', include('skill.urls')),
+    path('experiences/', include('experiences_app.urls')),
     path('404', TemplateView.as_view(template_name='404.html'),
          name='not_found'),
 

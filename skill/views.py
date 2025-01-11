@@ -27,11 +27,8 @@ class SkillCategoryCreateView(MyLoginRequiredMixin, TemplateView):
         if form.is_valid():
             form.instance.user = request.user
             form.save()
-            categories = request.user.skill_categories.all()
-            return render(
-                request, 'skill_categories/list.html',
-                {'categories': categories}
-                )
+            request.user.skill_categories.all()
+            return redirect('skill_categories_list')
         return render(request, self.template_name, {'form': form})
 
 
@@ -51,9 +48,7 @@ class SkillCategoryEditView(MyLoginRequiredMixin, TemplateView):
         try:
             category = request.user.skill_categories.get(id=pk_category)
             context = {'form': SkillCategoryForm(instance=category)}
-            return render(
-                request, 'skill_categories/new_and_edit.html', context
-                )
+            return redirect('skill_categories_list')
         except SkillCategory.DoesNotExist:
             return redirect('not_found')
 
