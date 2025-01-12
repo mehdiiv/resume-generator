@@ -48,7 +48,9 @@ class SkillCategoryEditView(MyLoginRequiredMixin, TemplateView):
         try:
             category = request.user.skill_categories.get(id=pk_category)
             context = {'form': SkillCategoryForm(instance=category)}
-            return redirect('skill_categories_list')
+            return render(
+                request, 'skill_categories/new_and_edit.html', context
+                )
         except SkillCategory.DoesNotExist:
             return redirect('not_found')
 

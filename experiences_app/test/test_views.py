@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from django.contrib.auth import logout
 from django.urls import reverse
 from user_app.models import User
-from experiences_app.models import Experience
+from experiences_app.models import Experience, ExperienceDescription
 
 
 class ViewTest(TestCase):
@@ -22,6 +22,10 @@ class ViewTest(TestCase):
             role='testrole', start_date='2012-12-12',
             end_date='2013-12-12'
         )
+        self.experiencedescription = ExperienceDescription.objects.create(
+            experience_id=self.experience.id,
+            description='testdescription'
+        )
 
     def test_create_experience_get_view(self):
         response = self.client.get(reverse('experience_new'))
@@ -34,7 +38,7 @@ class ViewTest(TestCase):
              'role': 'testrole2', 'start_date': '2000-01-01',
              'end_date': '2006-06-06'}
             )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         experience = Experience.objects.filter(user=self.user).count()
         self.assertEqual(2, experience)
 
@@ -146,3 +150,241 @@ class ViewTest(TestCase):
         self.assertEqual(response.status_code, 302)
         experience = Experience.objects.filter(user=self.user).count()
         self.assertEqual(1, experience)
+
+    def test_experience_detail_view(self):
+        response = self.client.get(
+            reverse(
+                'experience_detail',
+                kwargs={'pk_experience': self.user.id}
+                )
+            )
+        self.assertEqual(response.status_code, 200)
+
+    def test_experience_detail_view_invalid_pk_experience(self):
+        response = self.client.get(
+            reverse(
+                'experience_detail',
+                kwargs={'pk_experience': 1000}
+                )
+            )
+        self.assertEqual(response.status_code, 302)
+
+    def test_experience_detail_view_logout(self):
+        logout(self.client)
+        response = self.client.get(
+            reverse(
+                'experience_detail',
+                kwargs={'pk_experience': self.user.id}
+                )
+            )
+        self.assertEqual(response.status_code, 302)
+
+    def test_create_experience_description_get_view(self):
+        response = self.client.get(reverse(
+            'description_new', kwargs={'pk_experience': self.experience.id})
+            )
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_experience_description_get_view_invalid_pk_experience(self):
+        response = self.client.get(
+            reverse('description_new', kwargs={'pk_experience': 1000})
+            )
+        self.assertEqual(response.status_code, 302)
+
+    def test_create_experience_description_post_view(self):
+        response = self.client.post(
+            reverse(
+                'description_new',
+                kwargs={'pk_experience': self.experience.id}
+                ),
+            {'description': 'testdescription2'}
+            )
+        self.assertEqual(response.status_code, 302)
+        experiencedescription = ExperienceDescription.objects.filter(
+            experience_id=self.experience.id
+            ).count()
+        self.assertEqual(2, experiencedescription)
+
+    def test_create_experience_description_post_view_invalid_pk_experience(self):
+        response = self.client.post(
+            reverse('description_new', kwargs={'pk_experience': 1000}),
+            {'description': 'testdescription2'}
+            )
+        self.assertEqual(response.status_code, 302)
+        experiencedescription = ExperienceDescription.objects.filter(
+            experience_id=self.experience.id
+            ).count()
+        self.assertEqual(1, experiencedescription)
+
+    def test_create_experience_description_get_logout_view(self):
+        logout(self.client)
+        response = self.client.get(
+            reverse(
+                'description_new',
+                kwargs={'pk_experience': self.experience.id}
+                )
+            )
+        self.assertEqual(response.status_code, 302)
+
+    def test_create_experience_description_post_logout_view(self):
+        logout(self.client)
+        response = self.client.post(
+            reverse(
+                'description_new',
+                kwargs={'pk_experience': self.experience.id}
+                ),
+            {'description': 'testdescription2'}
+            )
+        self.assertEqual(response.status_code, 302)
+
+    def test_experience_description_edit_view_get(self):
+        response = self.client.get(
+            reverse(
+                'description_edit',
+                kwargs={
+                    'pk_experience': self.experiencedescription.id,
+                    'pk_description': self.experiencedescription.id
+                    }
+                ),
+            {'description': 'updatedescription'})
+        self.assertEqual(response.status_code, 200)
+
+    def test_experience_description_edit_view_get_invalid_pk_experience(self):
+        response = self.client.get(
+            reverse(
+                'description_edit',
+                kwargs={'pk_experience': 1000, 'pk_description': self.experiencedescription.id}
+                ),
+            {'description': 'updatedescription'})
+        self.assertEqual(response.status_code, 302)
+
+    def test_experience_description_edit_view_get_invalid_pk_description(self):
+        response = self.client.get(
+            reverse(
+                'description_edit',
+                kwargs={'pk_experience': self.experience.id, 'pk_description': 1000}
+                ),
+            {'description': 'updatedescription'})
+        self.assertEqual(response.status_code, 302)
+
+    def test_experience_description_edit_view_get_invalid_pk_experience_pk_description(self):
+        response = self.client.get(
+            reverse(
+                'description_edit',
+                kwargs={'pk_experience': 1000, 'pk_description': 1000}
+                ),
+            {'description': 'updatedescription'})
+        self.assertEqual(response.status_code, 302)
+
+    def test_experience_description_edit_view_get_logout(self):
+        logout(self.client)
+        response = self.client.get(
+            reverse(
+                'description_edit',
+                kwargs={
+                    'pk_experience': self.experiencedescription.id,
+                    'pk_description': self.experiencedescription.id
+                    }
+                ),
+            {'description': 'updatedescription'})
+        self.assertEqual(response.status_code, 302)
+
+    def test_experience_description_edit_view_post(self):
+        response = self.client.post(reverse(
+            'description_edit',
+            kwargs={'pk_experience': self.experience.id,
+                    'pk_description': self.experiencedescription.id}
+                    ),
+            {'description': 'updatedescription'})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(
+            ExperienceDescription.objects.get(experience_id=self.experience.id).description,
+            'updatedescription'
+            )
+
+    def test_experience_description_edit_view_post_logout(self):
+        logout(self.client)
+        response = self.client.post(reverse(
+            'description_edit',
+            kwargs={
+                'pk_experience': self.experiencedescription.id,
+                'pk_description': self.experiencedescription.id
+                }
+            ),
+            {'description': 'updatedescription'})
+        self.assertEqual(response.status_code, 302)
+
+    def test_experience_description_delete_view(self):
+        response = self.client.get(
+            reverse(
+                'description_delete',
+                kwargs={
+                    'pk_experience': self.experiencedescription.id,
+                    'pk_description': self.experiencedescription.id
+                    }
+                )
+            )
+        self.assertEqual(response.status_code, 302)
+        experiencedescription = ExperienceDescription.objects.filter(
+            experience_id=self.experience.id
+            ).count()
+        self.assertEqual(0, experiencedescription)
+
+    def test_experience_description_delete_view_invalid_pk_experience(self):
+        response = self.client.get(
+            reverse(
+                'description_delete',
+                kwargs={'pk_experience': 1000, 'pk_description': self.experiencedescription.id}
+                )
+            )
+        self.assertEqual(response.status_code, 302)
+        experiencedescription = ExperienceDescription.objects.filter(
+            experience_id=self.experience.id
+            ).count()
+        self.assertEqual(1, experiencedescription)
+
+    def test_experience_description_delete_view_invalid_pk_description(self):
+        response = self.client.get(
+            reverse(
+                'description_delete',
+                kwargs={
+                    'pk_experience': self.experiencedescription.id,
+                    'pk_description': 1000
+                    }
+                )
+            )
+        self.assertEqual(response.status_code, 302)
+        experiencedescription = ExperienceDescription.objects.filter(
+            experience_id=self.experience.id
+            ).count()
+        self.assertEqual(1, experiencedescription)
+
+    def test_experience_description_delete_view_invalid_pk_experience_pk_description(self):
+        response = self.client.get(
+            reverse(
+                'description_delete',
+                kwargs={'pk_experience': 1000, 'pk_description': 1000}
+                )
+            )
+        self.assertEqual(response.status_code, 302)
+        experiencedescription = ExperienceDescription.objects.filter(
+            experience_id=self.experience.id
+            ).count()
+        self.assertEqual(1, experiencedescription)
+
+    def test_experience_description_delete_view_logout(self):
+        logout(self.client)
+        response = self.client.get(
+            reverse(
+                'description_delete',
+                kwargs={
+                    'pk_experience': self.experiencedescription.id,
+                    'pk_description': self.experiencedescription.id
+                    }
+                )
+            )
+        self.assertEqual(response.status_code, 302)
+        experiencedescription = ExperienceDescription.objects.filter(
+            experience_id=self.experience.id
+            ).count()
+        self.assertEqual(1, experiencedescription)
