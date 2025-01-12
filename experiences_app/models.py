@@ -22,3 +22,17 @@ class Experience(models.Model):
 
     class Meta:
         db_table = 'experiences'
+
+
+class ExperienceDescription(models.Model):
+    experience = models.ForeignKey(
+        Experience, on_delete=models.CASCADE,
+        related_name='experience_descriptions'
+    )
+    description = models.TextField(
+        max_length=1024, blank=False,
+        unique=True
+        )
+
+    class Meta:
+        db_table = 'experience_descriptions'

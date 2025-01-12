@@ -33,7 +33,7 @@ class ViewTest(TestCase):
             reverse('skill_category_new'),
             {'category': 'testcategory2'}
             )
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
         categories = SkillCategory.objects.filter(user=self.user).count()
         self.assertEqual(2, categories)
 

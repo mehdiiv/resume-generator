@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
-from experiences_app.models import Experience
+from experiences_app.models import Experience, ExperienceDescription
 from user_app.views import MyLoginRequiredMixin
-from experiences_app.forms import ExperienceForm
+from experiences_app.forms import ExperienceForm, ExperienceDescriptionForm
 
 
 class ExperienceListView(MyLoginRequiredMixin, TemplateView):
@@ -27,7 +27,7 @@ class ExperienceCreateView(MyLoginRequiredMixin, TemplateView):
         if form.is_valid():
             form.instance.user = request.user
             form.save()
-            experiences = request.user.experiences.all()
+            request.user.experiences.all()
             return redirect('experiences_list')
         return render(request, self.template_name, {'form': form})
 
@@ -63,3 +63,84 @@ class ExperienceEditView(MyLoginRequiredMixin, TemplateView):
         return render(
             request, 'experiences/new_and_edit.html', {'form': form}
             )
+class ExperienceDetailView(MyLoginRequiredMixin, TemplateView):
+    template_name = 'experiences/detail.html'
+
+    def get(self, request, pk_experience):
+        try:
+            experience = request.user.experiences.get(id=pk_experience)
+            descriptions = ExperienceDescription.objects.all().filter(experience_id=pk_experience)
+            context = {
+                'experience_object': experience,
+                'descriptions_ojecsts': descriptions
+                }
+            return render(
+                request, self.template_name, context
+                )
+        except Experience.DoesNotExist:
+            return redirect('not_found')
+
+
+class ExperienceDescriptionCreateView(MyLoginRequiredMixin, TemplateView):
+    template_name = 'experience_descriptions/new_and_edit.html'
+
+    def get(self, request, pk_experience):
+        try:
+            request.user.experiences.get(id=pk_experience)
+            context = {'form': ExperienceDescriptionForm}
+            return render(request, self.template_name, context)
+        except Experience.DoesNotExist:
+            return redirect('not_found')
+
+    def post(self, request, pk_experience):
+        try:
+            request.user.experiences.get(id=pk_experience)
+            form = ExperienceDescriptionForm(request.POST)
+            form.instance.experience_id = pk_experience
+            if form.is_valid():
+                form.save()
+                return redirect('experience_detail', pk_experience)
+            return render(request, self.template_name, {'form': form})
+        except Experience.DoesNotExist:
+            return redirect('not_found')
+
+
+class ExperienceDescriptionDeleteView(MyLoginRequiredMixin, TemplateView):
+
+    def get(self, request, pk_experience, pk_description):
+        try:
+            experience = request.user.experiences.get(id=pk_experience)
+            experience.experience_descriptions.get(id=pk_description).delete()
+            return redirect('experience_detail', pk_experience)
+        except (Experience.DoesNotExist, ExperienceDescription.DoesNotExist):
+            return redirect('not_found')
+
+
+class ExperienceDescriptionEditView(MyLoginRequiredMixin, TemplateView):
+    template_name = 'experience_descriptions/new_and_edit.html'
+
+    def get(self, request, pk_experience, pk_description):
+        try:
+            experience = request.user.experiences.get(id=pk_experience)
+            experiencedescription = experience.experience_descriptions.get(id=pk_description)
+            form = ExperienceDescriptionForm(instance=experiencedescription)
+            context = {'form': form}
+            return render(
+                request, self.template_name, context
+            )
+        except (Experience.DoesNotExist, ExperienceDescription.DoesNotExist):
+            return redirect('not_found')
+
+    def post(self, request, pk_experience, pk_description):
+        try:
+            experience = request.user.experiences.get(id=pk_experience)
+            experiencedescription = experience.experience_descriptions.get(id=pk_description)
+            form = ExperienceDescriptionForm(request.POST, instance=experiencedescription)
+            if form.is_valid():
+                form.save()
+                return redirect('experience_detail', pk_experience)
+            return render(
+                request, self.template_name, {'form': form}
+            )
+        except (Experience.DoesNotExist, ExperienceDescription.DoesNotExist):
+            return redirect('not_found')

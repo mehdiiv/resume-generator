@@ -8,25 +8,32 @@ from skill.views import (
 
 
 urlpatterns = [
-    path('', SkillCategoryCreateView.as_view(),
+    path('new', SkillCategoryCreateView.as_view(),
          name='skill_category_new'),
-    path('skill_categories', SkillCategoriesView.as_view(),
+
+    path('', SkillCategoriesView.as_view(),
          name='skill_categories_list'),
-    path('skill_delete/<int:pk_category>', SkillCategoryDeleteView.as_view(),
+
+    path('<int:pk_category>/delete', SkillCategoryDeleteView.as_view(),
          name='skill_category_delete'),
-    path('<int:pk_category>/skill_edit', SkillCategoryEditView.as_view(),
+
+    path('<int:pk_category>/edit', SkillCategoryEditView.as_view(),
          name='skill_category_update'),
-    path('skill_category/<int:pk_category>', SkillCategoryDetailView.as_view(),
+
+    path('<int:pk_category>', SkillCategoryDetailView.as_view(),
          name='skill_category_detail'),
-    path('<int:pk_category>', SkillCreateView.as_view(),
+
+    path('<int:pk_category>/skills', SkillCreateView.as_view(),
          name='skill_new'),
+
     path(
-        '<int:pk_category>/skill_delete/<int:pk_skill>',
+        '<int:pk_category>/skills/<int:pk_skill>/delete',
         SkillDeleteView.as_view(),
+
         name='skill_delete'
          ),
     path(
-        '<int:pk_category>/skill_edit/<int:pk_skill>', SkillEditView.as_view(),
+        '<int:pk_category>/skills/<int:pk_skill>/edit', SkillEditView.as_view(),
         name='skill_edit'
          ),
 ]
