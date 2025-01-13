@@ -1,0 +1,62 @@
+{% extends 'main_layout.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Educations</h6>
+                <a href="{% url 'education_new' %}" class="btn btn-sm btn-primary shadow-sm">
+                    <i class="fas fa-solid fa-plus"></i>
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>number</th>
+                                <th>University</th>
+                                <th>Level</th>
+                                <th>Field</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for object in educations %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ object.university }}</td>
+                                <td>{{ object.level }}</td>
+                                <td>{{ object.field }}</td>
+                                <td>{{ object.date_start }}</td>
+                                    <td>{% if object.date_end  %}
+                                        {{ object.date_end }}
+                                        {% else %}
+                                        None
+                                        {% endif %}
+                                    </td>
+
+                                <td>
+                                    <a href="{% url 'education_update' object.id %}" class="btn btn-warning btn-circle">
+                                        <i class="fas fa-sharp fa-regular fa-pen"></i>
+                                    </a>
+
+                                    <a href="{% url 'education_delete' object.id %}" class="btn btn-danger btn-circle">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                    <a href="{% url 'education_detail' object.id %}" class="btn btn-info btn-circle">
+                                        <i class="fas fa-info-circle"></i
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

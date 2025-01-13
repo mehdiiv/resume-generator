@@ -30,13 +30,13 @@ class UrlTest(SimpleTestCase):
         self.assertEqual(resolve(url).func.view_class, ExperienceDetailView)
 
     def test_experience_description_create_url(self):
-        url = reverse('description_new', kwargs={'pk_experience': 1})
+        url = reverse('experience_description_new', kwargs={'pk_experience': 1})
         self.assertEqual(resolve(url).func.view_class, ExperienceDescriptionCreateView)
 
     def test_experience_description_edit_url(self):
-        url = reverse('description_edit', kwargs={'pk_experience': 1, 'pk_description': 1})
+        url = reverse('experience_description_edit', kwargs={'pk_experience': 1, 'pk_experience_description': 1})
         self.assertEqual(resolve(url).func.view_class, ExperienceDescriptionEditView)
 
     def test_experience_description_delete_url(self):
-        url = reverse('description_delete', kwargs={'pk_experience': 1, 'pk_description': 1})
+        url = reverse('experience_description_delete', kwargs={'pk_experience': 1, 'pk_experience_description': 1})
         self.assertEqual(resolve(url).func.view_class, ExperienceDescriptionDeleteView)

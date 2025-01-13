@@ -181,20 +181,20 @@ class ViewTest(TestCase):
 
     def test_create_experience_description_get_view(self):
         response = self.client.get(reverse(
-            'description_new', kwargs={'pk_experience': self.experience.id})
+            'experience_description_new', kwargs={'pk_experience': self.experience.id})
             )
         self.assertEqual(response.status_code, 200)
 
     def test_create_experience_description_get_view_invalid_pk_experience(self):
         response = self.client.get(
-            reverse('description_new', kwargs={'pk_experience': 1000})
+            reverse('experience_description_new', kwargs={'pk_experience': 1000})
             )
         self.assertEqual(response.status_code, 302)
 
     def test_create_experience_description_post_view(self):
         response = self.client.post(
             reverse(
-                'description_new',
+                'experience_description_new',
                 kwargs={'pk_experience': self.experience.id}
                 ),
             {'description': 'testdescription2'}
@@ -207,7 +207,7 @@ class ViewTest(TestCase):
 
     def test_create_experience_description_post_view_invalid_pk_experience(self):
         response = self.client.post(
-            reverse('description_new', kwargs={'pk_experience': 1000}),
+            reverse('experience_description_new', kwargs={'pk_experience': 1000}),
             {'description': 'testdescription2'}
             )
         self.assertEqual(response.status_code, 302)
@@ -220,7 +220,7 @@ class ViewTest(TestCase):
         logout(self.client)
         response = self.client.get(
             reverse(
-                'description_new',
+                'experience_description_new',
                 kwargs={'pk_experience': self.experience.id}
                 )
             )
@@ -230,7 +230,7 @@ class ViewTest(TestCase):
         logout(self.client)
         response = self.client.post(
             reverse(
-                'description_new',
+                'experience_description_new',
                 kwargs={'pk_experience': self.experience.id}
                 ),
             {'description': 'testdescription2'}
@@ -240,10 +240,10 @@ class ViewTest(TestCase):
     def test_experience_description_edit_view_get(self):
         response = self.client.get(
             reverse(
-                'description_edit',
+                'experience_description_edit',
                 kwargs={
                     'pk_experience': self.experiencedescription.id,
-                    'pk_description': self.experiencedescription.id
+                    'pk_experience_description': self.experiencedescription.id
                     }
                 ),
             {'description': 'updatedescription'})
@@ -252,26 +252,26 @@ class ViewTest(TestCase):
     def test_experience_description_edit_view_get_invalid_pk_experience(self):
         response = self.client.get(
             reverse(
-                'description_edit',
-                kwargs={'pk_experience': 1000, 'pk_description': self.experiencedescription.id}
+                'experience_description_edit',
+                kwargs={'pk_experience': 1000, 'pk_experience_description': self.experiencedescription.id}
                 ),
             {'description': 'updatedescription'})
         self.assertEqual(response.status_code, 302)
 
-    def test_experience_description_edit_view_get_invalid_pk_description(self):
+    def test_experience_description_edit_view_get_invalid_pk_experience_description(self):
         response = self.client.get(
             reverse(
-                'description_edit',
-                kwargs={'pk_experience': self.experience.id, 'pk_description': 1000}
+                'experience_description_edit',
+                kwargs={'pk_experience': self.experience.id, 'pk_experience_description': 1000}
                 ),
             {'description': 'updatedescription'})
         self.assertEqual(response.status_code, 302)
 
-    def test_experience_description_edit_view_get_invalid_pk_experience_pk_description(self):
+    def test_experience_description_edit_view_get_invalid_pk_experience_pk_experience_description(self):
         response = self.client.get(
             reverse(
-                'description_edit',
-                kwargs={'pk_experience': 1000, 'pk_description': 1000}
+                'experience_description_edit',
+                kwargs={'pk_experience': 1000, 'pk_experience_description': 1000}
                 ),
             {'description': 'updatedescription'})
         self.assertEqual(response.status_code, 302)
@@ -280,10 +280,10 @@ class ViewTest(TestCase):
         logout(self.client)
         response = self.client.get(
             reverse(
-                'description_edit',
+                'experience_description_edit',
                 kwargs={
                     'pk_experience': self.experiencedescription.id,
-                    'pk_description': self.experiencedescription.id
+                    'pk_experience_description': self.experiencedescription.id
                     }
                 ),
             {'description': 'updatedescription'})
@@ -291,9 +291,9 @@ class ViewTest(TestCase):
 
     def test_experience_description_edit_view_post(self):
         response = self.client.post(reverse(
-            'description_edit',
+            'experience_description_edit',
             kwargs={'pk_experience': self.experience.id,
-                    'pk_description': self.experiencedescription.id}
+                    'pk_experience_description': self.experiencedescription.id}
                     ),
             {'description': 'updatedescription'})
         self.assertEqual(response.status_code, 302)
@@ -305,10 +305,10 @@ class ViewTest(TestCase):
     def test_experience_description_edit_view_post_logout(self):
         logout(self.client)
         response = self.client.post(reverse(
-            'description_edit',
+            'experience_description_edit',
             kwargs={
                 'pk_experience': self.experiencedescription.id,
-                'pk_description': self.experiencedescription.id
+                'pk_experience_description': self.experiencedescription.id
                 }
             ),
             {'description': 'updatedescription'})
@@ -317,10 +317,10 @@ class ViewTest(TestCase):
     def test_experience_description_delete_view(self):
         response = self.client.get(
             reverse(
-                'description_delete',
+                'experience_description_delete',
                 kwargs={
                     'pk_experience': self.experiencedescription.id,
-                    'pk_description': self.experiencedescription.id
+                    'pk_experience_description': self.experiencedescription.id
                     }
                 )
             )
@@ -333,8 +333,8 @@ class ViewTest(TestCase):
     def test_experience_description_delete_view_invalid_pk_experience(self):
         response = self.client.get(
             reverse(
-                'description_delete',
-                kwargs={'pk_experience': 1000, 'pk_description': self.experiencedescription.id}
+                'experience_description_delete',
+                kwargs={'pk_experience': 1000, 'pk_experience_description': self.experiencedescription.id}
                 )
             )
         self.assertEqual(response.status_code, 302)
@@ -343,13 +343,13 @@ class ViewTest(TestCase):
             ).count()
         self.assertEqual(1, experiencedescription)
 
-    def test_experience_description_delete_view_invalid_pk_description(self):
+    def test_experience_description_delete_view_invalid_pk_experience_description(self):
         response = self.client.get(
             reverse(
-                'description_delete',
+                'experience_description_delete',
                 kwargs={
                     'pk_experience': self.experiencedescription.id,
-                    'pk_description': 1000
+                    'pk_experience_description': 1000
                     }
                 )
             )
@@ -359,11 +359,11 @@ class ViewTest(TestCase):
             ).count()
         self.assertEqual(1, experiencedescription)
 
-    def test_experience_description_delete_view_invalid_pk_experience_pk_description(self):
+    def test_experience_description_delete_view_invalid_pk_experience_pk_experience_description(self):
         response = self.client.get(
             reverse(
-                'description_delete',
-                kwargs={'pk_experience': 1000, 'pk_description': 1000}
+                'experience_description_delete',
+                kwargs={'pk_experience': 1000, 'pk_experience_description': 1000}
                 )
             )
         self.assertEqual(response.status_code, 302)
@@ -376,10 +376,10 @@ class ViewTest(TestCase):
         logout(self.client)
         response = self.client.get(
             reverse(
-                'description_delete',
+                'experience_description_delete',
                 kwargs={
                     'pk_experience': self.experiencedescription.id,
-                    'pk_description': self.experiencedescription.id
+                    'pk_experience_description': self.experiencedescription.id
                     }
                 )
             )

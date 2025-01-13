@@ -10,6 +10,9 @@ class User(AbstractUser):
     email = models.EmailField(
         unique=True, max_length=128, blank=False, null=False
         )
+    title = models.CharField(
+        max_length=64, blank=True, null=True
+    )
     github_link = models.URLField(
         max_length=128, blank=True, null=True
         )

@@ -24,15 +24,15 @@ urlpatterns = [
          name='experience_detail'),
 
     path('<int:pk_experience>/experience_descriptions', ExperienceDescriptionCreateView.as_view(),
-         name='description_new'),
+         name='experience_description_new'),
 
     path(
-        '<int:pk_experience>/experience_descriptions/<int:pk_description>/delete',
+        '<int:pk_experience>/experience_descriptions/<int:pk_experience_description>/delete',
         ExperienceDescriptionDeleteView.as_view(),
-        name='description_delete'
+        name='experience_description_delete'
          ),
     path(
-        '<int:pk_experience>/experience_descriptions/<int:pk_description>/edit', ExperienceDescriptionEditView.as_view(),
-        name='description_edit'
+        '<int:pk_experience>/experience_descriptions/<int:pk_experience_description>/edit', ExperienceDescriptionEditView.as_view(),
+        name='experience_description_edit'
          ),
 ]
