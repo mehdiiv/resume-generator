@@ -16,9 +16,17 @@
                         <form method="post" data-bitwarden-watching="1" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-10">
+                                    <input type="text" class="form-control form-control-user" id="exampletitle"
+                                        placeholder="job title" name = "title" value="{{ form.title.value|default:'' }}">
+                                </div>
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="url" class="form-control form-control-user" id="examplegithublink"
                                         placeholder="github link" name = "github_link" value="{{ form.github_link.value|default:'' }}">
+                                </div>
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="tel" class="form-control form-control-user" id="examplephone_number"
+                                        placeholder="phone number" name = "phone_number" value="{{ form.phone_number.value|default:'' }}">
                                 </div>
                                 <div class="col-sm-6">
                                     <input type="url" class="form-control form-control-user" id="examplelinkedinlink"
@@ -27,25 +35,22 @@
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="tel" class="form-control form-control-user" id="examplecountry"
-                                        placeholder="phone number" name = "phone_number" value="{{ form.phone_number.value|default:'' }}">
+                                    <input type="text" class="form-control form-control-user" id="examplecity"
+                                        placeholder="city" name = "city" value="{{ form.city.value|default:'' }}">
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-10">
                                     <input type="text" class="form-control form-control-user" id="examplecountry"
                                         placeholder="country" name = "country" value="{{ form.country.value|default:'' }}">
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-10">
-                                    <input type="text" class="form-control form-control-user" id="examplecity"
-                                        placeholder="city" name = "city" value="{{ form.city.value|default:'' }}">
+                                    <input type="file" class="form-control form-control-user" id="image"
+                                        placeholder="image" name = "image" accept="image/*" value="{{ form.image.value|default:'' }}">
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="text" class="form-control form-control-user" id="exampleaboutme"
                                         placeholder="about me" name = "about_me" value="{{ form.about_me.value|default:'' }}">
                                 </div>
-                                <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="file" class="form-control form-control-user" id="image"
-                                        placeholder="image" name = "image" accept="image/*" value="{{ form.image.value|default:'' }}">
-                                </div>
+
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <div>

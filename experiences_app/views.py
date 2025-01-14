@@ -107,10 +107,10 @@ class ExperienceDescriptionCreateView(MyLoginRequiredMixin, TemplateView):
 
 class ExperienceDescriptionDeleteView(MyLoginRequiredMixin, TemplateView):
 
-    def get(self, request, pk_experience, pk_description):
+    def get(self, request, pk_experience, pk_experience_description):
         try:
             experience = request.user.experiences.get(id=pk_experience)
-            experience.experience_descriptions.get(id=pk_description).delete()
+            experience.experience_descriptions.get(id=pk_experience_description).delete()
             return redirect('experience_detail', pk_experience)
         except (Experience.DoesNotExist, ExperienceDescription.DoesNotExist):
             return redirect('not_found')
@@ -119,10 +119,10 @@ class ExperienceDescriptionDeleteView(MyLoginRequiredMixin, TemplateView):
 class ExperienceDescriptionEditView(MyLoginRequiredMixin, TemplateView):
     template_name = 'experience_descriptions/new_and_edit.html'
 
-    def get(self, request, pk_experience, pk_description):
+    def get(self, request, pk_experience, pk_experience_description):
         try:
             experience = request.user.experiences.get(id=pk_experience)
-            experiencedescription = experience.experience_descriptions.get(id=pk_description)
+            experiencedescription = experience.experience_descriptions.get(id=pk_experience_description)
             form = ExperienceDescriptionForm(instance=experiencedescription)
             context = {'form': form}
             return render(
@@ -131,10 +131,10 @@ class ExperienceDescriptionEditView(MyLoginRequiredMixin, TemplateView):
         except (Experience.DoesNotExist, ExperienceDescription.DoesNotExist):
             return redirect('not_found')
 
-    def post(self, request, pk_experience, pk_description):
+    def post(self, request, pk_experience, pk_experience_description):
         try:
             experience = request.user.experiences.get(id=pk_experience)
-            experiencedescription = experience.experience_descriptions.get(id=pk_description)
+            experiencedescription = experience.experience_descriptions.get(id=pk_experience_description)
             form = ExperienceDescriptionForm(request.POST, instance=experiencedescription)
             if form.is_valid():
                 form.save()

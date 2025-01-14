@@ -69,6 +69,6 @@ class UserInformationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['github_link', 'linkedin_link',
+        fields = ['title', 'github_link', 'linkedin_link',
                   'phone_number', 'country', 'city',
                   'about_me', 'image']
