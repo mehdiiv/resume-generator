@@ -1,8 +1,27 @@
 from django import forms
 from user_app.models import User
 
+class UserForm(forms.ModelForm):
 
-class UserCreateForm(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        repeat_password = cleaned_data.get("repeat_password")
+
+        if password != repeat_password:
+            self.add_error('password', 'Passwords do not match')
+            raise forms.ValidationError("Passwords do not match")
+
+        first_name = cleaned_data.get("first_name")
+        last_name = cleaned_data.get("last_name")
+        if User.objects.filter(first_name=first_name, last_name=last_name).exists():
+            self.add_error('last_name','User with this full name already exists')
+            raise forms.ValidationError("User with this full name already exists")
+
+        return cleaned_data
+
+
+class UserCreateForm(UserForm):
     repeat_password = forms.CharField(
         label='Repeat Password', widget=forms.PasswordInput
         )
@@ -11,19 +30,8 @@ class UserCreateForm(forms.ModelForm):
         model = User
         fields = ['first_name', 'last_name', 'email', 'password']
 
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get("password")
-        repeat_password = cleaned_data.get("repeat_password")
 
-        if password != repeat_password:
-            self.add_error('password', 'Passwords do not match')
-            raise forms.ValidationError("Passwords do not match")
-
-        return cleaned_data
-
-
-class UserUpdateForm(forms.ModelForm):
+class UserUpdateForm(UserForm):
     repeat_password = forms.CharField(
         label='Repeat Password', widget=forms.PasswordInput
         )
@@ -31,17 +39,6 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'password']
-
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get("password")
-        repeat_password = cleaned_data.get("repeat_password")
-
-        if password != repeat_password:
-            self.add_error('password', 'Passwords do not match')
-            raise forms.ValidationError("Passwords do not match")
-
-        return cleaned_data
 
 
 class PhoneNumberField(forms.CharField):

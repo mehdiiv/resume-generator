@@ -16,43 +16,43 @@
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="text" class="form-control form-control-user" id="example_university"
                                            placeholder="University" name="university" value="{{ form.university.value|default:'' }}">
+                                           {% if form.university.errors %}
+                                                <span class="control-label" for="inputError">{{ form.university.errors }}</span>
+                                           {% endif %}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="text" class="form-control form-control-user" id="example_level"
                                            placeholder="Level" name="level" value="{{ form.level.value|default:'' }}">
+                                           {% if form.level.errors %}
+                                                <span class="control-label" for="inputError">{{ form.level.errors }}</span>
+                                           {% endif %}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="text" class="form-control form-control-user" id="example_field"
                                            placeholder="Field" name="field" value="{{ form.field.value|default:'' }}">
+                                           {% if form.field.errors %}
+                                                <span class="control-label" for="inputError">{{ form.field.errors }}</span>
+                                           {% endif %}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="date" class="form-control form-control-user" id="examples_tart_date"
-                                           placeholder="Start date" name="date_start" value="{{ form.date_start.value|default:'' }}">
+                                           placeholder="Start date" name="start_date" value="{{ form.instance.start_date_form|default:'' }}">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="date" class="form-control form-control-user" id="example_date_end"
-                                           placeholder="End date" name="date_end" value="{{ form.date_end.value|default:'' }}">
+                                    <input type="date" class="form-control form-control-user" id="end_date"
+                                           placeholder="End date" name="end_date" value="{{ form.instance.end_date_form|default:'' }}">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <div>
-                                {% for field in form %}
-                                    {% if field.errors %}
-                                        <ul class="errors">
-                                            {% for error in field.errors %}
-                                                <li> {{ error }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                {% endfor %}
                             </div>
                         </form>
                         <hr>

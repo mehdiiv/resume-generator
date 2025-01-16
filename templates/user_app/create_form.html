@@ -14,22 +14,31 @@
                             {% csrf_token %}
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" id="exampleFirstName"
+                                    <input type="text" class="form-control form-control-user" id="First_Name"
                                         placeholder="First Name" name = "first_name" value="{{ form.first_name.value|default:'' }}">
+                                        {% if form.first_name.errors %}
+                                                <span class="control-label" for="inputError">{{ form.first_name.errors }}</span>
+                                        {% endif %}
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="text" class="form-control form-control-user" id="exampleLastName"
+                                    <input type="text" class="form-control form-control-user" id="Last_Name"
                                         placeholder="Last Name" name = "last_name" value="{{ form.last_name.value|default:'' }}">
+                                        {% if form.last_name.errors %}
+                                                <span class="control-label" for="inputError">{{ form.last_name.errors }}</span>
+                                        {% endif %}
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control form-control-user" id="exampleInputEmail"
+                                <input type="email" class="form-control form-control-user" id="Input_Email"
                                     placeholder="Email Address" name="email" value="{{ form.email.value|default:' ' }}">
+                                    {% if form.email.errors %}
+                                                <span class="control-label" for="inputError">{{ form.email.errors }}</span>
+                                    {% endif %}
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="password" class="form-control form-control-user"
-                                        id="exampleInputPassword" placeholder="Password" name="password">
+                                        id="Input_Password" placeholder="Password" name="password">
                                 </div>
                                 <div class="col-sm-6">
                                     <input type="password" class="form-control form-control-user"
@@ -41,15 +50,6 @@
                                 <a class="small" href="{% url 'login' %}">Already have an account? Login!</a>
                             </div>
                             <div>
-                                {% for field in form %}
-                                    {% if field.errors %}
-                                        <ul class="errors">
-                                            {% for error in field.errors %}
-                                                <li>{{field.name}} {{ error }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                {% endfor %}
                             </div>
                         </form>
                         <hr>

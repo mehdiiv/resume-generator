@@ -7,7 +7,7 @@ from django.test import TestCase
 
 class UserCreateFormTest(TestCase):
 
-    def test_user_create_from_valid_data(self):
+    def test_user_create_form_valid_data(self):
         form = UserCreateForm(
             {'first_name': 'test', 'last_name': 'testi',
              'email': 'test@test.com', 'password': '1',
@@ -15,15 +15,15 @@ class UserCreateFormTest(TestCase):
             )
         self.assertTrue(form.is_valid())
 
-    def test_user_create_from_invalid_data(self):
-        self.user_create_from_invalid_data_emtpy_first_name()
-        self.user_create_from_invalid_data_emtpy_last_name()
-        self.user_create_from_invalid_data_emtpy_email()
-        self.user_create_from_invalid_data_emtpy_password()
-        self.user_create_from_invalid_data_emtpy_repeat_password()
-        self.user_create_from_invalid_data_not_match_password_repeat_password()
+    def test_user_create_form_invalid_data(self):
+        self.user_create_form_invalid_data_emtpy_first_name()
+        self.user_create_form_invalid_data_emtpy_last_name()
+        self.user_create_form_invalid_data_emtpy_email()
+        self.user_create_form_invalid_data_emtpy_password()
+        self.user_create_form_invalid_data_emtpy_repeat_password()
+        self.user_create_form_invalid_data_not_match_password_repeat_password()
 
-    def user_create_from_invalid_data_emtpy_first_name(self):
+    def user_create_form_invalid_data_emtpy_first_name(self):
         form = UserCreateForm(
             {'last_name': 'testi', 'email': 'test@test.com',
              'password': '1', 'repeat_password': '1'}
@@ -32,7 +32,7 @@ class UserCreateFormTest(TestCase):
         self.assertEqual(
             form.errors['first_name'][0], 'This field is required.')
 
-    def user_create_from_invalid_data_emtpy_email(self):
+    def user_create_form_invalid_data_emtpy_email(self):
         form = UserCreateForm(
             {'first_name': 'test', 'last_name': 'testi',
              'password': '1', 'repeat_password': '1'}
@@ -41,7 +41,7 @@ class UserCreateFormTest(TestCase):
         self.assertEqual(
             form.errors['email'][0], 'This field is required.')
 
-    def user_create_from_invalid_data_emtpy_last_name(self):
+    def user_create_form_invalid_data_emtpy_last_name(self):
         form = UserCreateForm(
             {'first_name': 'test', 'email': 'test@test.com',
              'password': '1', 'repeat_password': '1'})
@@ -49,7 +49,7 @@ class UserCreateFormTest(TestCase):
         self.assertEqual(
             form.errors['last_name'][0], 'This field is required.')
 
-    def user_create_from_invalid_data_emtpy_password(self):
+    def user_create_form_invalid_data_emtpy_password(self):
         form = UserCreateForm(
             {'first_name': 'test',
              'last_name': 'testi', 'email': 'test@test.com',
@@ -58,7 +58,7 @@ class UserCreateFormTest(TestCase):
         self.assertEqual(
             form.errors['password'][0], 'This field is required.')
 
-    def user_create_from_invalid_data_emtpy_repeat_password(self):
+    def user_create_form_invalid_data_emtpy_repeat_password(self):
         form = UserCreateForm(
             {'first_name': 'test',
              'last_name': 'testi', 'email': 'test@test.com',
@@ -67,7 +67,7 @@ class UserCreateFormTest(TestCase):
         self.assertEqual(
             form.errors['repeat_password'][0], 'This field is required.')
 
-    def user_create_from_invalid_data_not_match_password_repeat_password(self):
+    def user_create_form_invalid_data_not_match_password_repeat_password(self):
         form = UserCreateForm(
             {'first_name': 'test',
              'last_name': 'testi', 'email': 'test@test.com',

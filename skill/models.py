@@ -8,11 +8,11 @@ class SkillCategory(models.Model):
         related_name='skill_categories'
         )
     category = models.CharField(
-        max_length=32, blank=False,
-        unique=True
+        max_length=32, blank=False
         )
 
     class Meta:
+        unique_together = ['user', 'category']
         db_table = 'skill_categories'
 
 
@@ -22,9 +22,9 @@ class Skill(models.Model):
         related_name='skills'
         )
     name = models.CharField(
-        max_length=32, blank=False,
-        unique=True
+        max_length=32, blank=False
         )
 
     class Meta:
+        unique_together = ['skill_category', 'name']
         db_table = 'skills'

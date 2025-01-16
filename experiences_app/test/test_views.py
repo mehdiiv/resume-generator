@@ -363,7 +363,8 @@ class ViewTest(TestCase):
         response = self.client.get(
             reverse(
                 'experience_description_delete',
-                kwargs={'pk_experience': 1000, 'pk_experience_description': 1000}
+                kwargs={'pk_experience': 1000,
+                        'pk_experience_description': 1000}
                 )
             )
         self.assertEqual(response.status_code, 302)

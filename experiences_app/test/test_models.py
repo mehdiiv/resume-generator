@@ -16,8 +16,8 @@ class UserModelTest(TestCase):
             end_date='2013-03-03',
             )
         self.experiencedescription = ExperienceDescription.objects.create(
-            experience_id = self.experience.id,
-            description = 'testdescription'
+            experience_id=self.experience.id,
+            description='testdescription'
         )
 
     def test_model_experience_cerate(self):
@@ -30,7 +30,12 @@ class UserModelTest(TestCase):
         self.assertEqual(self.experience._meta.db_table, 'experiences')
 
     def test_model_experience_description_cerate(self):
-        self.assertEqual(self.experiencedescription.description, 'testdescription')
+        self.assertEqual(
+            self.experiencedescription.description, 'testdescription'
+            )
 
     def test_model_experience_description_name(self):
-        self.assertEqual(self.experiencedescription._meta.db_table, 'experience_descriptions')
+        self.assertEqual(
+            self.experiencedescription._meta.db_table,
+            'experience_descriptions'
+            )

@@ -13,8 +13,8 @@ class UserModelTest(TestCase):
             user_id=self.user.id,
             university='testuniversity', level='testlevel',
             field='testfield',
-            date_start='2012-02-02',
-            date_end='2013-03-03',
+            start_date='2012-02-02',
+            end_date='2013-03-03',
             )
         self.educationdescription = EducationDescription.objects.create(
             education_id = self.education.id,
@@ -25,8 +25,8 @@ class UserModelTest(TestCase):
         self.assertEqual(self.education.university, 'testuniversity')
         self.assertEqual(self.education.level, 'testlevel')
         self.assertEqual(self.education.field, 'testfield')
-        self.assertEqual(self.education.date_start, '2012-02-02')
-        self.assertEqual(self.education.date_end, '2013-03-03')
+        self.assertEqual(self.education.start_date, '2012-02-02')
+        self.assertEqual(self.education.end_date, '2013-03-03')
 
     def test_model_education_name(self):
         self.assertEqual(self.education._meta.db_table, 'educations')

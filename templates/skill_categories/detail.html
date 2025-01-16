@@ -24,22 +24,31 @@
                         </thead>
                         <tbody>
                             {% for object in skills_ojecsts %}
-                            <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ object.name }}</td>
-                                <td>
-                                    <a href="{% url 'skill_delete' category_object.id object.id %}" class="btn btn-danger btn-circle">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                    <a href="{% url 'skill_edit' category_object.id object.id %}" class="btn btn-warning btn-circle">
-                                        <i class="fas fa-sharp fa-regular fa-pen"></i>
-                                    </a>
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ object.name }}</td>
+                                    <td>
+                                        <a href="{% url 'skill_delete' category_object.id object.id %}" class="btn btn-danger btn-circle">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        <a href="{% url 'skill_edit' category_object.id object.id %}" class="btn btn-warning btn-circle">
+                                            <i class="fas fa-sharp fa-regular fa-pen"></i>
+                                        </a>
 
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>
+                    <div>
+                        <a href="{% url 'skill_categories_list' %}" class="btn btn-secondary ">
+                        <span class="icon text-white-50">
+                        </span>
+                        <span class="text">
+                            Back
+                            </span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

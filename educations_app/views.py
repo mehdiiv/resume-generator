@@ -16,7 +16,7 @@ class EducationListView(MyLoginRequiredMixin, TemplateView):
 
 
 class EducationCreateView(MyLoginRequiredMixin, TemplateView):
-    template_name = 'educations/new_and_edit.html'
+    template_name = 'educations/new.html'
 
     def get(self, request):
         context = {'form': EducationForm}
@@ -48,7 +48,7 @@ class EducationEditView(MyLoginRequiredMixin, TemplateView):
             education = request.user.educations.get(id=pk_education)
             context = {'form': EducationForm(instance=education)}
             return render(
-                request, 'educations/new_and_edit.html', context
+                request, 'educations/edit.html', context
                 )
         except Education.DoesNotExist:
             return redirect('not_found')
@@ -60,7 +60,7 @@ class EducationEditView(MyLoginRequiredMixin, TemplateView):
             form.save()
             return redirect('educations_list')
         return render(
-            request, 'educations/new_and_edit.html', {'form': form}
+            request, 'educations/edit.html', {'form': form}
             )
 class EducationDetailView(MyLoginRequiredMixin, TemplateView):
     template_name = 'educations/detail.html'
