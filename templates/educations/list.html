@@ -26,32 +26,32 @@
                         </thead>
                         <tbody>
                             {% for object in educations %}
-                            <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ object.university }}</td>
-                                <td>{{ object.level }}</td>
-                                <td>{{ object.field }}</td>
-                                <td>{{ object.date_start }}</td>
-                                    <td>{% if object.date_end  %}
-                                        {{ object.date_end }}
-                                        {% else %}
-                                        None
-                                        {% endif %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ object.university }}</td>
+                                    <td>{{ object.level }}</td>
+                                    <td>{{ object.field }}</td>
+                                    <td>{{ object.start_date }}</td>
+                                        <td>{% if object.end_date  %}
+                                                {{ object.end_date }}
+                                            {% else %}
+                                                None
+                                            {% endif %}
+                                        </td>
+
+                                    <td>
+                                        <a href="{% url 'education_update' object.id %}" class="btn btn-warning btn-circle">
+                                            <i class="fas fa-sharp fa-regular fa-pen"></i>
+                                        </a>
+
+                                        <a href="{% url 'education_delete' object.id %}" class="btn btn-danger btn-circle">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        <a href="{% url 'education_detail' object.id %}" class="btn btn-info btn-circle">
+                                            <i class="fas fa-info-circle"></i
+                                        </a>
                                     </td>
-
-                                <td>
-                                    <a href="{% url 'education_update' object.id %}" class="btn btn-warning btn-circle">
-                                        <i class="fas fa-sharp fa-regular fa-pen"></i>
-                                    </a>
-
-                                    <a href="{% url 'education_delete' object.id %}" class="btn btn-danger btn-circle">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                    <a href="{% url 'education_detail' object.id %}" class="btn btn-info btn-circle">
-                                        <i class="fas fa-info-circle"></i
-                                    </a>
-                                </td>
-                            </tr>
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>

@@ -40,4 +40,8 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
     class Meta:
+        unique_together = ['first_name', 'last_name']
         db_table = 'users'
+
+    def full_name(self):
+        return f"{self.first_name}-{self.last_name}"

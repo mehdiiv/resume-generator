@@ -1,0 +1,150 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Resume</title>
+    <link href={% static "css/style.css" %} rel="stylesheet" type="text/css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <main>
+            <div class="col-left">
+                {% if user.image %}
+                    <div class="circular_image border-down-white" >
+                        <img src="{{ user.image.url }}" alt="User Image" >
+                    </div>
+                {% endif %}
+                <div class="profile_name border-down-white">
+                    <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+                    {% if user.title %}
+                    <h2>Software developer</h2>
+                    {% endif %}
+                </div>
+                {% if user.github_link or user.linkedin_link or user.phone_number or user.country or user.city %}
+                    <div class="border-down-white profile-detail">
+                        <div class="left-title">Contact me</div>
+                    </div>
+                    {% if user.github_link %}
+                        <div class="border-down-white">
+                            <div>
+                                <i class="fab fa-github">
+                                <a href="{{ user.github_link }}">
+                                </i>Github
+                                </a>
+                            </div>
+                    {% endif %}
+                        {% if user.linkedin_link %}
+                            <div>
+                                <i class="fab fa-linkedin">
+                                <a href="{{ user.linkedin_link }}">
+
+                                    </i> Linked in
+                                </a>
+                            </div>
+                        {% endif %}
+                        {% if user.phone_number %}
+                            <div>
+                                <i class="fas fa-phone"></i> {{ user.phone_number }}
+                            </div>
+                        {% endif %}
+                        {% if user.country and user.city %}
+                            <div>
+                            </a><i class="fas fa-map-marker-alt"></i>
+                            {{ user.city }}, {{ user.country }}
+                            </div>
+                            {% elif user.city %}
+                                <div>
+                                </a><i class="fas fa-map-marker-alt"></i>
+                                {{ user.city }}
+                                </div>
+                            {% elif user.country %}
+                                <div>
+                                </a><i class="fas fa-map-marker-alt"></i>
+                                {{ user.country }}
+                                </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {% if user.about_me %}
+                    <div class="border-down-white profile-detail">
+                        <div class="left-title">About me</div>
+                    </div>
+                    <div class="border-down-white">
+                        <p class="about-me">
+                            {{ user.about_me }}
+                        </p>
+                    </div>
+                {% endif %}
+                {% for skill_category in user.skill_categories.all %}
+                    <div class="border-down-white profile-detail">
+                        <div class="left-title">{{ skill_category.category }}</div>
+                    </div>
+                    <div class="border-down-white">
+                        <ul>
+                            {% for skill in skill_category.skills.all %}
+                                <li>
+                                    {{ skill.name }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="col-right">
+                <div class="border-up-black border-down-black profile-detail">
+                    <div class="experiance-header">EXPERIENCE</div>
+                </div>
+
+                {% for experience in user.experiences.all %}
+                    <div class="boreder-right-{{ color_number.increment }} border-down-black">
+                        <div class="border-down-black experiance-title">
+                            <div>
+                                {{ experience.title }}
+                            </div>
+                            <div class="flex-container">
+                                <span>{{ experience.role }}</span>
+                                <span class="date-style">{{ experience.start_date_year_month }} - {{ experience.end_date_year_month }}</span>
+                            </div>
+                        </div>
+                        <ul>
+                            {% for experience_description in experience.experience_descriptions.all %}
+                            <li>
+                                <div>{{ experience_description.description }}</div>
+                            </li>
+                            {% endfor %}
+                            </li>
+                        </ul>
+                    </div>
+                {% endfor %}
+                {% for education in user.educations.all %}
+                    <div class="boreder-right-{{ color_number.increment }} border-down-black">
+                        <div class="border-down-black experiance-title">
+                            <div class="flex-container">
+                                <span>{{ education.university }}</span>
+                                <span class="date-style">{{ education.field }}</span>
+                            </div>
+                            <div class="flex-container">
+                                <span>{{ education.level }}</span>
+                                <span class="date-style">{{ education.start_date_year_month }} - {{ education.end_date_year_month }}</span>
+                            </div>
+                        </div>
+                        <ul>
+                            {% for education_description in education.education_descriptions.all %}
+                            <li>
+                                {{ education_description.description }}
+                            </li>
+                            {% endfor %}
+                            </li>
+                        </ul>
+                    </div>
+                {% endfor %}
+          </div>
+        </main>
+    </div>
+</body>
+</html>

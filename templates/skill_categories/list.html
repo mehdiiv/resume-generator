@@ -22,24 +22,24 @@
                         </thead>
                         <tbody>
                             {% for object in categories %}
-                            <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td>{{ object.category }}</td>
-                                <td>
-                                    <a href="{% url 'skill_category_update' object.id %}" class="btn btn-warning btn-circle">
-                                        <i class="fas fa-sharp fa-regular fa-pen"></i>
-                                    </a>
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ object.category }}</td>
+                                    <td>
+                                        <a href="{% url 'skill_category_update' object.id %}" class="btn btn-warning btn-circle">
+                                            <i class="fas fa-sharp fa-regular fa-pen"></i>
+                                        </a>
 
-                                    <a href="{% url 'skill_category_delete' object.id %}" class="btn btn-danger btn-circle">
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                    </a>
+                                        <a href="{% url 'skill_category_delete' object.id %}" class="btn btn-danger btn-circle">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                        </a>
 
-                                    <a href="{% url 'skill_category_detail' object.id %}" class="btn btn-info btn-circle">
-                                        <i class="fas fa-info-circle"></i
-                                    </a>
-                                </td>
-                            </tr>
+                                        <a href="{% url 'skill_category_detail' object.id %}" class="btn btn-info btn-circle">
+                                            <i class="fas fa-info-circle"></i
+                                        </a>
+                                    </td>
+                                </tr>
                             {% endfor %}
                         </tbody>
                     </table>

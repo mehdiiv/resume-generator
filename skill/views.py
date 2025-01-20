@@ -24,10 +24,9 @@ class SkillCategoryCreateView(MyLoginRequiredMixin, TemplateView):
 
     def post(self, request):
         form = SkillCategoryForm(request.POST)
+        form.instance.user = request.user
         if form.is_valid():
-            form.instance.user = request.user
             form.save()
-            request.user.skill_categories.all()
             return redirect('skill_categories_list')
         return render(request, self.template_name, {'form': form})
 

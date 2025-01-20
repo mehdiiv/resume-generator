@@ -17,52 +17,74 @@
                             {% csrf_token %}
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-10">
-                                    <input type="text" class="form-control form-control-user" id="exampletitle"
-                                        placeholder="job title" name = "title" value="{{ form.title.value|default:'' }}">
+                                    <input type="text" class="form-control form-control-user" id="title"
+                                        placeholder="Job Title" name = "title" value="{{ form.title.value|default:'' }}">
+                                        {% if form.title.errors %}
+                                                <span class="control-label" for="inputError">{{ form.title.errors }}</span>
+                                        {% endif %}
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="url" class="form-control form-control-user" id="examplegithublink"
-                                        placeholder="github link" name = "github_link" value="{{ form.github_link.value|default:'' }}">
+                                    <input type="url" class="form-control form-control-user" id="github_link"
+                                        placeholder="Github Link" name = "github_link" value="{{ form.github_link.value|default:'' }}">
+                                        {% if form.github_link.errors %}
+                                                <span class="control-label" for="inputError">{{ form.github_link.errors }}</span>
+                                        {% endif %}
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="tel" class="form-control form-control-user" id="examplephone_number"
-                                        placeholder="phone number" name = "phone_number" value="{{ form.phone_number.value|default:'' }}">
+                                    <input type="tel" class="form-control form-control-user" id="phone_number"
+                                        placeholder="Phone Number" name = "phone_number" value="{{ form.phone_number.value|default:'' }}">
+                                        {% if form.phone_number.errors %}
+                                                <span class="control-label" for="inputError">{{ form.phone_number.errors }}</span>
+                                        {% endif %}
                                 </div>
                                 <div class="col-sm-6">
-                                    <input type="url" class="form-control form-control-user" id="examplelinkedinlink"
-                                        placeholder="linkedin link" name = "linkedin_link" value="{{ form.linkedin_link.value|default:'' }}">
+                                    <input type="url" class="form-control form-control-user" id="linkedin_link"
+                                        placeholder="Linkedin Link" name = "linkedin_link" value="{{ form.linkedin_link.value|default:'' }}">
+                                        {% if form.linkedin_link.errors %}
+                                                <span class="control-label" for="inputError">{{ form.linkedin_link.errors }}</span>
+                                        {% endif %}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" id="examplecity"
-                                        placeholder="city" name = "city" value="{{ form.city.value|default:'' }}">
+                                    <input type="text" class="form-control form-control-user" id="city"
+                                        placeholder="City" name = "city" value="{{ form.city.value|default:'' }}">
+                                        {% if form.city.errors %}
+                                                <span class="control-label" for="inputError">{{ form.city.errors }}</span>
+                                        {% endif %}
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-10">
-                                    <input type="text" class="form-control form-control-user" id="examplecountry"
-                                        placeholder="country" name = "country" value="{{ form.country.value|default:'' }}">
+                                    <input type="text" class="form-control form-control-user" id="country"
+                                        placeholder="Country" name = "country" value="{{ form.country.value|default:'' }}">
+                                        {% if form.country.errors %}
+                                                <span class="control-label" for="inputError">{{ form.country.errors }}</span>
+                                        {% endif %}
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-10">
                                     <input type="file" class="form-control form-control-user" id="image"
-                                        placeholder="image" name = "image" accept="image/*" value="{{ form.image.value|default:'' }}">
+                                        placeholder="Image" name = "image" accept="image/*" value="{{ form.image.value|default:'' }}">
+                                        {% if form.image.errors %}
+                                                <span class="control-label" for="inputError">{{ form.image.errors }}</span>
+                                        {% endif %}
                                 </div>
                                 <div class="col-sm-6 mb-3 mb-sm-0">
-                                    <input type="text" class="form-control form-control-user" id="exampleaboutme"
-                                        placeholder="about me" name = "about_me" value="{{ form.about_me.value|default:'' }}">
+                                    <input type="text" class="form-control form-control-user" id="about_me"
+                                        placeholder="About Me" name = "about_me" value="{{ form.about_me.value|default:'' }}">
+                                        {% if form.about_me.errors %}
+                                                <span class="control-label" for="inputError">{{ form.about_me.errors }}</span>
+                                        {% endif %}
                                 </div>
 
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
+                            <a href="{% url 'profile_detail' %}" class="btn btn-danger ">
+                                <span class="icon text-white-50">
+                                </span>
+                                <span class="text">
+                                    Cansel
+                                    </span>
+                            </a>
                             <div>
-                                {% for field in form %}
-                                    {% if field.errors %}
-                                        <ul class="errors">
-                                            {% for error in field.errors %}
-                                                <li>{{field.name}} {{ error }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                {% endfor %}
                             </div>
                         </form>
                         <hr>

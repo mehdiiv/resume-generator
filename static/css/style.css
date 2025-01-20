@@ -1,0 +1,139 @@
+*{
+    padding: 10px;
+}
+
+body {
+    font-family: 'Noto Sans', Arial, sans-serif;
+}
+
+main{
+    display: flex;
+    align-items: stretch; /* Ensures both sections stretch to the same height */
+    gap: 28px; /* Optional: Add space between the sections */
+    font-size: 30px;
+}
+
+.col-left{
+    width: 795px;
+    float: left;
+    background-color: black;
+    color: white;
+}
+.col-right{
+    width: 1931px;
+    float: right;
+}
+.circular_image {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.circular_image img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover; /* Focus on the center of the image */
+  }
+
+.profile_name {
+    text-align: center;
+    font-size: 22px;
+  }
+
+.profile-detail {
+    text-align: left
+  }
+
+.left-title {
+    font-size: 33px;
+    font-weight: bold;
+}
+
+.experiance-header {
+    font-size: 33px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.experiance-title {
+    margin: 0;
+}
+
+.about-me {
+    line-height: 42px;
+}
+
+.col-left ul {
+    margin: 0;
+    padding-left: 30px;
+}
+
+.border-down-white {
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    border-bottom-color: white;
+  }
+
+.boreder-right-0{
+    padding-top: 0;
+    border-right-width: 20px;
+    border-right-style: solid;
+    border-right-color: rgb(6, 209, 125);
+
+}
+.boreder-right-1{
+    padding-top: 0;
+    border-right-width: 20px;
+    border-right-style: solid;
+    border-right-color: rgb(14, 38, 110);
+
+}
+.boreder-right-2{
+    border-right-width: 20px;
+    border-right-style: solid;
+    border-right-color: rgb(97, 134, 243);
+
+}
+.boreder-right-3{
+    border-right-width: 20px;
+    border-right-style: solid;
+    border-right-color: rgba(151, 102, 10, 0.973);
+    margin: 0;
+}
+.boreder-right-4{
+    border-right-width: 20px;
+    border-right-style: solid;
+    border-right-color: rgb(219, 190, 59);
+    margin: 0;
+}
+.border-down-black{
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(0, 0, 0);
+}
+
+.border-up-black{
+    border-top-width: 3px;
+    border-top-style: solid;
+    border-top-color: rgb(0, 0, 0)
+}
+.border-down-black {
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(0, 0, 0);
+  }
+.date-style{
+    float: right;
+}
+.flex-container {
+    display: flex;
+    justify-content: space-between; /* Push spans to opposite ends */
+    align-items: center; /* Vertically align spans */
+    padding-bottom: 0;
+  }
+
+  .date-style {
+    font-style: italic; /* Optional styling for the date */
+  }

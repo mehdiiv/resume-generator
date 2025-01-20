@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'user_app',
     'skill',
     'experiences_app',
-    'educations_app'
+    'educations_app',
+    'resume_app'
 ]
 
 MIDDLEWARE = [

@@ -4,7 +4,7 @@ from django.test import TestCase
 
 class ExperienceFormTest(TestCase):
 
-    def test_experience_create_from_valid_data(self):
+    def test_experience_create_form_valid_data(self):
         form = ExperienceForm(
             {'title': 'testtitle',
              'role': 'testrole', 'start_date': '2013-03-03',
@@ -12,7 +12,7 @@ class ExperienceFormTest(TestCase):
             )
         self.assertTrue(form.is_valid())
 
-    def test_experience_create_from_invalid_data(self):
+    def test_experience_create_form_invalid_data(self):
         form = ExperienceForm(
             {'title': 'testtitle',
              'role': 'testrole', 'start_date': 'xyz',
@@ -23,7 +23,7 @@ class ExperienceFormTest(TestCase):
 
 class ExperienceDescriptionFormTest(TestCase):
 
-    def test_experience_description_create_from_valid_data(self):
+    def test_experience_description_create_form_valid_data(self):
         form = ExperienceDescriptionForm(
             {'description': 'exampledescription'}
             )

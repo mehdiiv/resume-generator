@@ -16,37 +16,41 @@
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="text" class="form-control form-control-user" id="example_title"
                                            placeholder="Title" name="title" value="{{ form.title.value|default:'' }}">
+                                           {% if form.title.errors %}
+                                                <span class="control-label" for="inputError">{{ form.title.errors }}</span>
+                                           {% endif %}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="text" class="form-control form-control-user" id="example_role"
                                            placeholder="Role" name="role" value="{{ form.role.value|default:'' }}">
+                                           {% if form.role.errors %}
+                                                <span class="control-label" for="inputError">{{ form.role.errors }}</span>
+                                           {% endif %}
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="date" class="form-control form-control-user" id="examples_tart_date"
-                                           placeholder="Start date" name="start_date" value="{{ form.start_date.value|default:'' }}">
+                                           placeholder="Start date" name="start_date" value="{{ form.instance.start_date_form|default:'' }}">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <div class="col-sm-6 mb-3 mb-sm-0">
                                     <input type="date" class="form-control form-control-user" id="example_end_date"
-                                           placeholder="End date" name="end_date" value="{{ form.end_date.value|default:'' }}">
+                                           placeholder="End date" name="end_date" value="{{ form.instance.end_date_form|default:'' }}">
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
+                            <a href="{% url 'experiences_list' %}" class="btn btn-danger ">
+                                <span class="icon text-white-50">
+                                </span>
+                                <span class="text">
+                                    Cansel
+                                    </span>
+                            </a>
                             <div>
-                                {% for field in form %}
-                                    {% if field.errors %}
-                                        <ul class="errors">
-                                            {% for error in field.errors %}
-                                                <li> {{ error }}</li>
-                                            {% endfor %}
-                                        </ul>
-                                    {% endif %}
-                                {% endfor %}
                             </div>
                         </form>
                         <hr>

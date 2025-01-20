@@ -16,7 +16,7 @@ class ExperienceListView(MyLoginRequiredMixin, TemplateView):
 
 
 class ExperienceCreateView(MyLoginRequiredMixin, TemplateView):
-    template_name = 'experiences/new_and_edit.html'
+    template_name = 'experiences/new.html'
 
     def get(self, request):
         context = {'form': ExperienceForm}
@@ -49,7 +49,7 @@ class ExperienceEditView(MyLoginRequiredMixin, TemplateView):
             experience = request.user.experiences.get(id=pk_experience)
             context = {'form': ExperienceForm(instance=experience)}
             return render(
-                request, 'experiences/new_and_edit.html', context
+                request, 'experiences/edit.html', context
                 )
         except Experience.DoesNotExist:
             return redirect('not_found')
@@ -61,8 +61,10 @@ class ExperienceEditView(MyLoginRequiredMixin, TemplateView):
             form.save()
             return redirect('experiences_list')
         return render(
-            request, 'experiences/new_and_edit.html', {'form': form}
+            request, 'experiences/edit.html', {'form': form}
             )
+
+
 class ExperienceDetailView(MyLoginRequiredMixin, TemplateView):
     template_name = 'experiences/detail.html'
 

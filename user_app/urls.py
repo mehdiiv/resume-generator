@@ -5,8 +5,9 @@ from user_app.views import (
     UserCreate, UserLogin,
     UserLogout, MyLoginRequiredMixin,
     UserUpdate, EditProfileInformation,
-    ProfileInformation
+    ProfileInformation, UserResumeView
     )
+from user_app.models import User
 
 
 class HomeView(MyLoginRequiredMixin, TemplateView):

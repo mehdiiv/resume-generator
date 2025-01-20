@@ -19,8 +19,8 @@ class ViewTest(TestCase):
         )
         self.education = Education.objects.create(
             user=self.user, university='testuniversity',
-            level='testlevel', date_start='2012-12-12',
-            date_end='2013-12-12', field='testfield',
+            level='testlevel', start_date='2012-12-12',
+            end_date='2013-12-12', field='testfield',
         )
         self.educationdescription = EducationDescription.objects.create(
             education_id=self.education.id,
@@ -35,8 +35,8 @@ class ViewTest(TestCase):
         response = self.client.post(
             reverse('education_new'),
             {'university': 'testuniversity2', 'field': 'testfield',
-             'level': 'testlevel2', 'date_start': '2000-01-01',
-             'date_end': '2006-06-06'}
+             'level': 'testlevel2', 'start_date': '2000-01-01',
+             'end_date': '2006-06-06'}
             )
         self.assertEqual(response.status_code, 302)
         education = Education.objects.filter(user=self.user).count()
@@ -52,8 +52,8 @@ class ViewTest(TestCase):
         response = self.client.post(
             reverse('education_new'),
             {'university': 'testuniversity2', 'field': 'testfield',
-             'level': 'testlevel2', 'date_start': '2000-01-01',
-             'date_end': '2006-06-06'}
+             'level': 'testlevel2', 'start_date': '2000-01-01',
+             'end_date': '2006-06-06'}
             )
         self.assertEqual(response.status_code, 302)
 
@@ -93,8 +93,8 @@ class ViewTest(TestCase):
             kwargs={'pk_education': self.education.id}
             ),
             {'university': 'updatetestuniversity2', 'field': 'testfield',
-             'level': 'updatetestlevel2', 'date_start': '1999-12-12',
-             'date_end': '1980-12-12'})
+             'level': 'updatetestlevel2', 'start_date': '1999-12-12',
+             'end_date': '1980-12-12'})
         self.assertEqual(response.status_code, 302)
         self.assertEqual(
             Education.objects.get(user=self.user.id).university,
@@ -107,13 +107,13 @@ class ViewTest(TestCase):
         self.assertEqual(
             Education.objects.get(
                 user=self.user.id
-                ).date_start.strftime('%Y-%m-%d'),
+                ).start_date.strftime('%Y-%m-%d'),
             '1999-12-12'
             )
         self.assertEqual(
             Education.objects.get(
                 user=self.user.id
-                ).date_end.strftime('%Y-%m-%d'),
+                ).end_date.strftime('%Y-%m-%d'),
             '1980-12-12'
             )
 
@@ -124,8 +124,8 @@ class ViewTest(TestCase):
             kwargs={'pk_education': self.user.id}
             ),
             {'university': 'updatetestuniversity2', 'field': 'testfield',
-             'level': 'updatetestlevel2', 'date_start': '1999-07-07',
-             'date_end': '1980-04-04'})
+             'level': 'updatetestlevel2', 'start_date': '1999-07-07',
+             'end_date': '1980-04-04'})
         self.assertEqual(response.status_code, 302)
 
     def test_education_delete_view(self):

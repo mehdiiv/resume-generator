@@ -2,16 +2,13 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>Resume Generator</title>
-
     <!-- Custom fonts for this template-->
     <link href={% static "css/vendor/all.min.css" %} rel="stylesheet" type="text/css">
     <link
@@ -20,14 +17,11 @@
 
     <link href={% static "css/sb-admin-2.min.css" %} rel="stylesheet">
 </head>
-
 <body class="bg-gradient-primary">
     <!-- Page Wrapper -->
     <div id="wrapper">
-
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'home' %}">
                 <div class="sidebar-brand-icon rotate-n-15">
@@ -35,7 +29,6 @@
                 </div>
                 <div class="sidebar-brand-text mx-3">Csv generator</div>
             </a>
-
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
 
@@ -77,8 +70,12 @@
                     <i class="fas fa-solid fa-school"></i>
                     <span>Educations</span></a>
             </li>
-
-
+            <hr class="sidebar-divider">
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'user_resume' user.full_name  %}" target="_blank">
+                    <i class="fas fa-address-book"></i>
+                    <span>Resume</span></a>
+            </li>
         </ul>
         <!-- End of Sidebar -->
 
@@ -124,12 +121,7 @@
                                 </form>
                             </div>
                         </li>
-
-                        <!-- Nav Item - Messages -->
-
-
                         <div class="topbar-divider d-none d-sm-block"></div>
-
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
@@ -160,19 +152,13 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-
-
                 </div>
                 <!-- /.container-fluid -->
-
-
             <!-- End of Main Content -->
             <div class="container-fluid">
 
                     {% block content %}
                     {% endblock content %}
-
             </div>
 
             <!-- Footer -->
@@ -187,15 +173,12 @@
 
         </div>
         <!-- End of Content Wrapper -->
-
     </div>
     <!-- End of Page Wrapper -->
-
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-
     <!-- Logout Modal-->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -215,10 +198,6 @@
             </div>
         </div>
     </div>
-
-
-
-
     <!-- Bootstrap core JavaScript-->
     <script src="{% static "js/vendor/jquery.min.js" %}"></script>
     <script src="{% static "js/vendor/bootstrap.bundle.min.js" %}"></script>
