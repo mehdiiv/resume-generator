@@ -21,15 +21,20 @@
                 <div class="profile_name border-down-white">
                     <h1>{{ user.first_name }} {{ user.last_name }}</h1>
                     {% if user.title %}
-                    <h2>Software developer</h2>
+                    <h2>{{ user.title }}</h2>
                     {% endif %}
                 </div>
-                {% if user.github_link or user.linkedin_link or user.phone_number or user.country or user.city %}
                     <div class="border-down-white profile-detail">
                         <div class="left-title">Contact me</div>
                     </div>
-                    {% if user.github_link %}
-                        <div class="border-down-white">
+                    <div class="border-down-white">
+                            <div>
+                                <i class="fas fa-envelope">
+                                <a href="mailto:{{ user.email }}">
+                                </i>Email
+                                 </a>
+                            </div>
+                            {% if user.github_link %}
                             <div>
                                 <i class="fab fa-github">
                                 <a href="{{ user.github_link }}">
@@ -68,7 +73,6 @@
                                 </div>
                         {% endif %}
                     </div>
-                {% endif %}
                 {% if user.about_me %}
                     <div class="border-down-white profile-detail">
                         <div class="left-title">About me</div>
