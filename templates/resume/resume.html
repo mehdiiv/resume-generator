@@ -21,7 +21,7 @@
                 <div class="profile_name border-down-white">
                     <h1>{{ user.first_name }} {{ user.last_name }}</h1>
                     {% if user.title %}
-                    <h2>{{ user.title }}</h2>
+                        <h2>{{ user.title }}</h2>
                     {% endif %}
                 </div>
                     <div class="border-down-white profile-detail">
@@ -41,12 +41,11 @@
                                 </i>Github
                                 </a>
                             </div>
-                    {% endif %}
+                            {% endif %}
                         {% if user.linkedin_link %}
                             <div>
                                 <i class="fab fa-linkedin">
                                 <a href="{{ user.linkedin_link }}">
-
                                     </i> Linked in
                                 </a>
                             </div>
@@ -78,9 +77,7 @@
                         <div class="left-title">About me</div>
                     </div>
                     <div class="border-down-white">
-                        <p class="about-me">
-                            {{ user.about_me }}
-                        </p>
+                        <p class="about-me">{{ user.about_me }}</p>
                     </div>
                 {% endif %}
                 {% for skill_category in user.skill_categories.all %}
@@ -98,7 +95,6 @@
                     </div>
                 {% endfor %}
             </div>
-
             <div class="col-right">
                 <div class="border-up-black border-down-black profile-detail">
                     <div class="experiance-header">EXPERIENCE</div>
@@ -117,9 +113,9 @@
                         </div>
                         <ul>
                             {% for experience_description in experience.experience_descriptions.all %}
-                            <li>
-                                <div>{{ experience_description.description }}</div>
-                            </li>
+                                <li>
+                                    <div>{{ experience_description.description }}</div>
+                                </li>
                             {% endfor %}
                             </li>
                         </ul>
@@ -139,9 +135,9 @@
                         </div>
                         <ul>
                             {% for education_description in education.education_descriptions.all %}
-                            <li>
-                                {{ education_description.description }}
-                            </li>
+                                <li>
+                                    {{ education_description.description }}
+                                </li>
                             {% endfor %}
                             </li>
                         </ul>
